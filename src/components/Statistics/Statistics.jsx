@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import randomBgColor from './randomBgColor.js';
 import s from './Statistics.module.css';
 
-function randomBgColor() {
-  const x = Math.floor(Math.random() * 256);
-  const y = Math.floor(Math.random() * 256);
-  const z = Math.floor(Math.random() * 256);
-  const bgColor = `rgb(${x}, ${y}, ${z})`;
-
-  return bgColor;
-}
 
 const Statistics = ({ title, stats }) => (
   <div className={s.bg}>
@@ -18,15 +11,14 @@ const Statistics = ({ title, stats }) => (
       <h2 className={s.title}>{title}</h2>
 
       <ul className={s.statList}>
-        {stats.length > 0 &&
-          stats.map(el => (
+        {stats.map(stat => (
             <li
-              key={el.id}
+              key={stat.id}
               className={s.item}
               style={{ backgroundColor: `${randomBgColor()}` }}
             >
-              <span className={s.label}>{el.label}</span>
-              <span className={s.percentage}>{el.percentage}%</span>
+              <span className={s.label}>{stat.label}</span>
+              <span className={s.percentage}>{stat.percentage}%</span>
             </li>
           ))}
       </ul>
@@ -34,10 +26,7 @@ const Statistics = ({ title, stats }) => (
   </div>
 );
 
-Statistics.defaultProps = {
-  title: '',
-  stats: [],
-};
+
 
 Statistics.propTypes = {
   title: PropTypes.string,
